@@ -25,7 +25,6 @@ class Artist
 
     def self.find_or_create_by_name(artist_name)
 
-        #self.new(artist_name) if find_by_name(artist_name) 
         if find_by_name(artist_name)
             find_by_name(artist_name)
         else
@@ -34,7 +33,12 @@ class Artist
     end
 
     def print_songs
-        puts songs.each {|song| song.name}
+        song_list = Song.all.each_with_object([]) do |song, song_list| 
+            if song.artist==self
+                song_list << song.name
+            end
+        end
+        puts song_list
     end
 
     def add_song(song)
